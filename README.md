@@ -23,7 +23,7 @@ $ python3 subpwnable.py
 
 ## Usage:
 ```bash
-usage: ./subpwnable.py [-h] [-d domain] [-l domain list]
+usage: ./subpwnable.py [-h] [-d domain] [-l domains list]
 ```
 ## options:
 ```bash
