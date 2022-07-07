@@ -40,4 +40,5 @@ optional arguments:
 
 ![tempsnip](https://user-images.githubusercontent.com/40497633/177732494-ad9dc598-e811-43e2-93e6-7b18aac11e23.png)
 
-![tempsnip](https://user-images.githubusercontent.com/40497633/177733527-62cfad02-f4f3-4440-8f81-214317e8124d.png)
+![tempsnip](https://user-images.githubusercontent.com/40497633/177736919-bec0c473-879c-449c-aa0b-dae0f5e79429.png)
+
