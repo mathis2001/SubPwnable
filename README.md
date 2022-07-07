@@ -35,3 +35,9 @@ optional arguments:
 ```
 
 ## Screens:
+
+![tempsnip](https://user-images.githubusercontent.com/40497633/177731564-c77d24eb-4906-4494-9138-f39e02619daa.png)
+
+![tempsnip](https://user-images.githubusercontent.com/40497633/177732494-ad9dc598-e811-43e2-93e6-7b18aac11e23.png)
+
+![tempsnip](https://user-images.githubusercontent.com/40497633/177733527-62cfad02-f4f3-4440-8f81-214317e8124d.png)
