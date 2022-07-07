@@ -6,6 +6,20 @@ import dns.resolver
 import argparse
 from prettytable import PrettyTable
 
+print('''
+<:|3~~...<:|3~~...<:|3~~...<:|3~~...<:|3~~...<:|3~~...<:|3~~...<:|3~~
+
+
+ __       _       ___                       _     _      
+/ _\_   _| |__   / _ \__      ___ __   __ _| |__ | | ___ 
+\ \| | | | '_ \ / /_)/\ \ /\ / / '_ \ / _` | '_ \| |/ _ \
+
+_\ \ |_| | |_) / ___/  \ V  V /| | | | (_| | |_) | |  __/
+\__/\__,_|_.__/\/       \_/\_/ |_| |_|\__,_|_.__/|_|\___|by S1rN3tZ
+                                                         
+                                           
+<:|3~~...<:|3~~...<:|3~~...<:|3~~...<:|3~~...<:|3~~...<:|3~~...<:|3~~
+''')
 class bcolors:
 	OK = '\033[92m'
 	WARNING = '\033[93m'
@@ -42,6 +56,9 @@ def sc(domain):
 				req=requests.get(rq.url)
 			else:
 				print("["+bcolors.FAIL+"Domain Not Available"+bcolors.RESET+"]"+domain+bcolors.INFO+' ==> '+bcolors.RESET+bcolors.FAIL+status_code+bcolors.RESET)
+		except KeyboardInterrupt:
+			print(bcolors.FAIL+"[!] "+bcolors.RESET+"Script canceled.")
+			exit(0)
 		except:
 			pass
 
@@ -56,6 +73,7 @@ def main():
 				print(args.domain+bcolors.INFO+' CNAME '+bcolors.RESET+CNAME)
 
 	elif args.list:
+		print(bcolors.INFO+"[*] "+bcolors.RESET+"Processing your request... It can take few minutes.\n")
 		sublist = open(args.list, encoding='utf-8')
 		try:
 			for sub in sublist:
@@ -75,9 +93,14 @@ def main():
 					for CNAME in records:
 						t.add_row([sub,bcolors.INFO+'CNAME'+bcolors.RESET,CNAME])
 			print(t)
+			sublist.close()
 
 		except:
 			pass
+
+	print(bcolors.INFO+"\n[*] "+bcolors.RESET+"Check out these helpful resources to know more about subdomains takeover:\n")
+	print(bcolors.INFO+"[*] "+bcolors.RESET+"https://github.com/EdOverflow/can-i-take-over-xyz")
+	print(bcolors.INFO+"[*] "+bcolors.RESET+"https://s1rn3tz.gitbook.io/notes/bug-bounty-tips/prise-de-controle-de-sous-domaine")
 
 
 try:
@@ -86,4 +109,5 @@ except Exception as e:
 	print(e)
 except KeyboardInterrupt:
 	print(bcolors.FAIL+"[!] "+bcolors.RESET+"Script canceled.")
+	exit(0)
 
