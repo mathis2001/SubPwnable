@@ -4,6 +4,7 @@ import requests
 import sys
 import dns.resolver
 import argparse
+from prettytable import PrettyTable
 
 class bcolors:
 	OK = '\033[92m'
@@ -26,7 +27,6 @@ def Record(domain):
 			list.append(CNAME)
 			return list
 	except:
-		print(bcolors.FAIL+"[!] "+bcolors.RESET+"No record found for "+ domain)
 		pass
 
 def sc(domain):
@@ -47,27 +47,43 @@ def sc(domain):
 
 def main():
 	if args.domain:
-		records=Record(args.domain)
 		sc(args.domain)
-		for CNAME in records:
-			print(args.domain+bcolors.INFO+' CNAME '+bcolors.RESET+CNAME)
+		records=Record(args.domain)
+		if not records:
+			print(bcolors.FAIL+"[!] "+bcolors.RESET+"No record found for "+args.domain)
+		else:
+			for CNAME in records:
+				print(args.domain+bcolors.INFO+' CNAME '+bcolors.RESET+CNAME)
 
 	elif args.list:
 		sublist = open(args.list, encoding='utf-8')
 		try:
 			for sub in sublist:
-				sub=sub.strip()
-				sc(sub)
-				records=Record(sub)
+				sc(sub.strip())
+			sublist.close()	
+			
+			print(bcolors.INFO+"\n[*] "+bcolors.RESET+"CNAME records:\n")
+
+			sublist = open(args.list, encoding='utf-8')
+			t=PrettyTable(['Domain','CNAME','Record'])
+			for sub in sublist:
+				records=Record(sub.strip())
 				if not records:
+					t.add_row([sub,bcolors.INFO+'CNAME'+bcolors.RESET,bcolors.FAIL+'None'+bcolors.RESET])
 					pass
 				else:
 					for CNAME in records:
-						print(sub+bcolors.INFO+' CNAME '+bcolors.RESET+CNAME)
-		except Exception as e:
-			print(e)
+						t.add_row([sub,bcolors.INFO+'CNAME'+bcolors.RESET,CNAME])
+			print(t)
+
+		except:
 			pass
 
-main()
 
+try:
+	main()
+except Exception as e:
+	print(e)
+except KeyboardInterrupt:
+	print(bcolors.FAIL+"[!] "+bcolors.RESET+"Script canceled.")
 
