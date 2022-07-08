@@ -1,6 +1,6 @@
 # SubPwnable
 
-Are your (sub)domains pwnable? SubPwnable is a simple Python tool designed to help you answer this question by finding your inactive subdomains and looking up their CNAME records. Then you will need to check on https://github.com/EdOverflow/can-i-take-over-xyz if the service used in this record is vulnerable.
+Are your (sub)domains pwnable? SubPwnable is a simple Python tool designed to help you answer this question by finding your inactive subdomains and looking up their CNAME records. Then you will need to check if the service used in your CNAME record is vulnerable in the known services list.
 
 ## Install:
 ```bash
