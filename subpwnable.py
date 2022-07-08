@@ -4,6 +4,8 @@ import requests
 import sys
 import dns.resolver
 import argparse
+import re
+import lxml.html
 from prettytable import PrettyTable
 
 print('''
@@ -62,6 +64,22 @@ def sc(domain):
 		except:
 			pass
 
+def match(regex, data):
+	list=[]
+	matches = re.finditer(regex, data, re.MULTILINE)
+
+	for matchNum, match in enumerate(matches, start=1):
+		return "{match}".format(matchNum = matchNum, start = match.start(), end = match.end(), match = match.group())
+
+def tabparsing(markup):
+	tbl = []
+	rows = markup.cssselect("tr")
+	for row in rows:
+  		tbl.append(list())
+  		for td in row.cssselect("td"):
+    			tbl[-1].append(td.text_content())
+	return tbl
+
 def main():
 	if args.domain:
 		sc(args.domain)
@@ -94,9 +112,28 @@ def main():
 						t.add_row([sub,bcolors.INFO+'CNAME'+bcolors.RESET,CNAME])
 			print(t)
 			sublist.close()
-
 		except:
 			pass
+
+	table = r"<table>(.|\n)*?<\/table>"
+
+	rq=requests.get("https://github.com/EdOverflow/can-i-take-over-xyz/blob/master/README.md")
+
+	result = match(table, rq.text)
+	markup = lxml.html.fromstring(result)
+
+	tbl = tabparsing(markup)
+
+	tab = PrettyTable(['Engine','Status','Fingerprint'])
+	tbl = [x for x in tbl if x != []]
+
+	for list in tbl:
+		del list[3]
+		del list[3]
+		tab.add_row(list)
+
+	print(bcolors.INFO+"\n[*] "+bcolors.RESET+"Known Services:\n")
+	print(tab)
 
 	print(bcolors.INFO+"\n[*] "+bcolors.RESET+"Check out these helpful resources to know more about subdomains takeover:\n")
 	print(bcolors.INFO+"[*] "+bcolors.RESET+"https://github.com/EdOverflow/can-i-take-over-xyz")
