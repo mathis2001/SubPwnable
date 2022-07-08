@@ -20,6 +20,12 @@ $ python3 subpwnable.py
 
 - requests
 
+- cssselect
+
+- lxml.html
+
+- PrettyTable
+
 
 ## Usage:
 ```bash
